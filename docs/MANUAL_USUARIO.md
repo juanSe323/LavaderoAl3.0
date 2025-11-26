@@ -17,38 +17,6 @@ Este manual te guiará paso a paso en el uso del sistema de gestión de lavadero
 - [Reportes](#reportes)
 - [Preguntas Frecuentes](#preguntas-frecuentes)
 
----
-
-## Inicio de Sesión
-
-### Acceder al Sistema
-
-1. Abre tu navegador web (Chrome, Firefox, Edge)
-2. Ingresa la dirección: `http://localhost:5173`
-3. Verás la pantalla de inicio de sesión
-
-### Credenciales Iniciales
-
-**Administrador:**
-- Usuario: `admin`
-- Contraseña: `admin123`
-
-**Empleado:**
-- Usuario: `empleado1`
-- Contraseña: `emp123`
-
-### Iniciar Sesión
-
-1. Escribe tu nombre de usuario
-2. Escribe tu contraseña
-3. Haz clic en el botón "Iniciar Sesión"
-4. Serás redirigido al dashboard principal
-
-### Cerrar Sesión
-
-1. Haz clic en tu nombre de usuario (esquina superior derecha)
-2. Selecciona "Cerrar Sesión"
-3. Serás redirigido a la pantalla de inicio
 
 ---
 
