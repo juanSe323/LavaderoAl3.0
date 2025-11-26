@@ -1,4 +1,4 @@
-# 🏗 Arquitectura del Sistema - Lavadero AL
+# Arquitectura del Sistema - Lavadero AL
 
 ## Tabla de Contenidos
 
