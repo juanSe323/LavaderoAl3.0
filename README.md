@@ -1,4 +1,4 @@
-# 🚗 Lavadero AL - Sistema de Gestión Integral
+# Lavadero AL - Sistema de Gestión Integral
 
 <div align="center">
 
@@ -18,7 +18,7 @@
 
 ---
 
-## 📋 Tabla de Contenidos
+## Tabla de Contenidos
 
 - [Descripción](#descripción)
 - [Características](#características)
@@ -31,68 +31,68 @@
 - [Licencia](#licencia)
 - [Contacto](#contacto)
 
-## 📖 Descripción
+## Descripción
 
 **Lavadero AL** es un sistema integral de gestión diseñado específicamente para lavaderos de vehículos. Permite administrar de manera eficiente todas las operaciones diarias, desde el control de empleados y servicios hasta la gestión de inventario y liquidaciones con convenios empresariales.
 
 ### ¿Para quién es este sistema?
 
-- 🏢 **Lavaderos pequeños y medianos** que necesitan digitalizar sus operaciones
-- 🚕 **Empresas de transporte** que requieren control de flotas y convenios
-- 👥 **Administradores** que buscan métricas y reportes en tiempo real
-- 💼 **Emprendedores** del sector automotriz
+- **Lavaderos pequeños y medianos** que necesitan digitalizar sus operaciones
+- **Empresas de transporte** que requieren control de flotas y convenios
+- **Administradores** que buscan métricas y reportes en tiempo real
+- **Emprendedores** del sector automotriz
 
-## ✨ Características
+## Características
 
-### 🔐 Gestión de Usuarios
+### Gestión de Usuarios
 - Sistema de autenticación con roles (Admin/Empleado)
 - Control de acceso basado en permisos
 - Perfiles de usuario personalizables
 
-### 👥 Administración de Empleados
+### Administración de Empleados
 - Registro completo de empleados con RUT y contacto
 - Control de estado (activo/inactivo)
 - Historial de liquidaciones por empleado
 - Cálculo automático de comisiones
 
-### 🚿 Gestión de Servicios
+### Gestión de Servicios
 - Catálogo de servicios con precios diferenciados
 - Registro detallado de servicios realizados
 - Asignación de empleados a servicios
 - Control de tipo de vehículo (Auto, SUV, Camioneta, Camión)
 
-### 📦 Control de Inventario
+### Control de Inventario
 - Gestión de productos e insumos
 - Control de stock en tiempo real
 - Registro de movimientos (entradas/salidas)
 - Alertas de stock mínimo
 - Historial completo de movimientos
 
-### 💰 Sistema de Liquidaciones
+### Sistema de Liquidaciones
 - Cálculo automático de liquidaciones
 - Detalle de servicios por empleado
 - Control de pagos y pendientes
 - Exportación de comprobantes
 
-### 🤝 Convenios Empresariales
+### Convenios Empresariales
 - Gestión de convenios con empresas
 - Registro de vehículos por convenio
 - Tarifas especiales por convenio
 - Facturación mensual automática
 
-### 📊 Dashboard y Reportes
+### Dashboard y Reportes
 - Métricas en tiempo real
 - Gráficos de servicios por período
 - Reportes de ingresos y gastos
 - Estadísticas de empleados
 - Análisis de convenios
 
-### 📋 Gestión de Tarifas
+### Gestión de Tarifas
 - Precios por tipo de vehículo
 - Tarifas especiales para convenios
 - Historial de cambios de precios
 
-## 🛠 Tecnologías
+## Tecnologías
 
 ### Frontend
 - **Vue 3** - Framework JavaScript progresivo
@@ -113,7 +113,7 @@
 ### Base de Datos
 - **MySQL 5.7+** / **MariaDB 10.3+**
 
-## 🚀 Instalación Rápida
+## Instalación Rápida
 
 ### Prerrequisitos
 
@@ -170,9 +170,9 @@ npm run dev
 | admin | admin123 | Administrador |
 | empleado1 | emp123 | Empleado |
 
-> ⚠️ **Importante:** Cambiar estas credenciales en producción
+> **Importante:** Cambiar estas credenciales en producción
 
-## 📚 Documentación
+## Documentación
 
 - **[Guía de Instalación Completa](INSTALACION.md)** - Instrucciones detalladas paso a paso
 - **[Documentación de API](docs/API.md)** - Endpoints y ejemplos de uso
@@ -180,7 +180,7 @@ npm run dev
 - **[Manual de Usuario](docs/MANUAL_USUARIO.md)** - Guía para usuarios finales
 - **[Guía de Contribución](CONTRIBUTING.md)** - Cómo contribuir al proyecto
 
-## 📁 Estructura del Proyecto
+## Estructura del Proyecto
 
 ```
 LavaderoAl3.0/
@@ -219,7 +219,7 @@ LavaderoAl3.0/
 └── README.md                # Este archivo
 ```
 
-## 🎯 Uso
+## Uso
 
 ### Inicio Rápido
 
@@ -259,7 +259,7 @@ graph LR
 4. Confirmar y generar liquidación
 5. Marcar como pagada
 
-## 🐛 Solución de Problemas
+## Solución de Problemas
 
 ### Error de conexión a la base de datos
 ```bash
@@ -277,7 +277,7 @@ uvicorn main:app --reload --port 8001
 ### Error de CORS
 Verificar que el frontend esté configurado en `backend/main.py` en el array `origins`
 
-## 🤝 Contribuir
+## Contribuir
 
 ¡Las contribuciones son bienvenidas! Por favor lee nuestra [Guía de Contribución](CONTRIBUTING.md) para detalles sobre:
 
@@ -294,7 +294,7 @@ Verificar que el frontend esté configurado en `backend/main.py` en el array `or
 4. Push a la rama (`git push origin feature/AmazingFeature`)
 5. Abre un Pull Request
 
-## 🗺 Roadmap
+## Roadmap
 
 - [ ] Implementación de JWT para autenticación
 - [ ] Subida de imágenes de vehículos
@@ -307,17 +307,17 @@ Verificar que el frontend esté configurado en `backend/main.py` en el array `or
 - [ ] Tests unitarios y de integración
 - [ ] Deployment con Docker
 
-## 📄 Licencia
+## Licencia
 
 Este proyecto está bajo la Licencia MIT. Ver el archivo [LICENSE](LICENSE) para más detalles.
 
-## 👨‍💻 Autor
+## Autor
 
 **Lavadero AL Team**
 
 - GitHub: [@Maruel20](https://github.com/Maruel20)
 
-## 🙏 Agradecimientos
+## Agradecimientos
 
 - Vue.js Team por el excelente framework
 - FastAPI por la increíble documentación
