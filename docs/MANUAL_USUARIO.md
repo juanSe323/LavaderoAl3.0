@@ -1,4 +1,4 @@
-# 📖 Manual de Usuario - Lavadero AL
+# Manual de Usuario - Lavadero AL
 
 ## Bienvenido a Lavadero AL
 
