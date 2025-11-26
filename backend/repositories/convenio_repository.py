@@ -16,6 +16,18 @@ class ConvenioRepository:
             cursor.close()
             conn.close()
 
+    # --- NUEVO MÉTODO AGREGADO ---
+    def get_by_id(self, id_convenio: int):
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        try:
+            cursor.execute("SELECT * FROM convenios WHERE id = %s", (id_convenio,))
+            return cursor.fetchone()
+        finally:
+            cursor.close()
+            conn.close()
+    # -----------------------------
+
     def create(self, c: ConvenioCreate):
         conn = get_db_connection()
         cursor = conn.cursor()
