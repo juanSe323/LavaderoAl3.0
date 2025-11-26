@@ -883,6 +883,6 @@ Usuario    Frontend    Router       Service      Repository    Database
 
 ---
 
-**Última actualización:** 2024-01-15
+**Última actualización:** 2025-11-26
 
 **Versión de la arquitectura:** 1.0.0
