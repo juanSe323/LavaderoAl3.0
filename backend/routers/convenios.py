@@ -25,7 +25,7 @@ def update_convenio(id_convenio: int, convenio: ConvenioUpdate):
     try:
         campos, valores = [], []
         if convenio.nombre_empresa: campos.append("nombre_empresa=%s"); valores.append(convenio.nombre_empresa)
-        if convenio.rut_empresa: campos.append("rut_empresa=%s"); valores.append(convenio.rut_empresa)
+        if convenio.nit_empresa: campos.append("nit_empresa=%s"); valores.append(convenio.nit_empresa)
         if convenio.contacto: campos.append("contacto=%s"); valores.append(convenio.contacto)
         if convenio.telefono: campos.append("telefono=%s"); valores.append(convenio.telefono)
         if convenio.email: campos.append("email=%s"); valores.append(convenio.email)
@@ -54,8 +54,8 @@ def delete_convenio(id_convenio: int):
 @router.post("/api/convenios/{id_convenio}/vehiculos")
 def add_vehiculo_convenio(id_convenio: int, vehiculo: VehiculoConvenioCreate):
     try:
-        if repo.check_vehiculo_activo(vehiculo.patente):
-            raise HTTPException(status_code=400, detail="Esta patente ya tiene un convenio activo")
+        if repo.check_vehiculo_activo(vehiculo.placa):
+            raise HTTPException(status_code=400, detail="Esta placa ya tiene un convenio activo")
         
         new_id = repo.add_vehiculo(id_convenio, vehiculo)
         return {"mensaje": "Vehículo agregado", "id": new_id}
@@ -78,10 +78,11 @@ def remove_vehiculo_convenio(id_vehiculo: int):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@router.get("/api/convenios/validar/{patente}")
-def validar_convenio_patente(patente: str):
+@router.get("/api/convenios/validar/{placa}")
+def validar_convenio_placa(placa: str):
+    """Valida si una placa pertenece a un convenio activo"""
     try:
-        convenio = repo.validar_patente(patente)
+        convenio = repo.validar_placa(placa)
         if convenio:
             return {"tiene_convenio": True, "convenio": convenio}
         return {"tiene_convenio": False}

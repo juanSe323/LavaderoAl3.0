@@ -70,9 +70,9 @@ class ServicioService:
         campos = []
         vals = []
 
-        if data.patente: 
-            campos.append("patente=%s")
-            vals.append(data.patente.upper())
+        if data.placa: 
+            campos.append("placa=%s")
+            vals.append(data.placa.upper())
         if data.tipo_vehiculo: 
             campos.append("tipo_vehiculo=%s")
             vals.append(data.tipo_vehiculo)

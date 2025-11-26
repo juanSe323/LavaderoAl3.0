@@ -102,7 +102,7 @@
                 <td class="ps-3 text-muted">#{{ liq.id }}</td>
                 <td>
                   <div class="fw-bold text-dark">{{ liq.nombre_empleado }}</div>
-                  <small class="text-muted" style="font-size: 0.8rem;">{{ liq.rut }}</small>
+                  <small class="text-muted" style="font-size: 0.8rem;">{{ liq.cedula }}</small>
                 </td>
                 <td>
                   <small>{{ formatDate(liq.periodo_inicio) }} <br> {{ formatDate(liq.periodo_fin) }}</small>
@@ -200,7 +200,7 @@
                 <div class="row align-items-center">
                   <div class="col-md-6">
                     <h5 class="fw-bold mb-1">{{ liquidacionSeleccionada.nombre_empleado }}</h5>
-                    <p class="text-muted mb-0">{{ liquidacionSeleccionada.rut }}</p>
+                    <p class="text-muted mb-0">{{ liquidacionSeleccionada.cedula }}</p>
                     <small class="text-primary">{{ liquidacionSeleccionada.email }}</small>
                   </div>
                   <div class="col-md-6 text-md-end mt-3 mt-md-0">
@@ -231,7 +231,7 @@
                     <tbody>
                       <tr v-for="serv in detalleServicios" :key="serv.id">
                         <td>{{ formatDate(serv.fecha) }}</td>
-                        <td>{{ serv.tipo_vehiculo }} <span class="text-muted">({{ serv.patente }})</span></td>
+                        <td>{{ serv.tipo_vehiculo }} <span class="text-muted">({{ serv.placa }})</span></td>
                         <td>{{ formatearServicio(serv.tipo_servicio) }}</td>
                         <td class="text-end text-muted">${{ serv.monto_total?.toLocaleString() }}</td>
                         <td class="text-end fw-bold text-success">${{ serv.monto_comision?.toLocaleString() }}</td>

@@ -170,7 +170,7 @@
               <thead class="bg-light">
                 <tr>
                   <th>Nombre</th>
-                  <th>RUT</th>
+                  <th>CEDULA</th>
                   <th>% Com.</th>
                   <th>Servicios</th>
                   <th>Total Vendido</th>
@@ -181,7 +181,7 @@
               <tbody>
                 <tr v-for="emp in reporteEmpleados" :key="emp.id">
                   <td class="fw-bold">{{ emp.nombre }}</td>
-                  <td>{{ emp.rut }}</td>
+                  <td>{{ emp.cedula }}</td>
                   <td>{{ emp.porcentaje_comision }}%</td>
                   <td><span class="badge bg-secondary">{{ emp.total_servicios }}</span></td>
                   <td class="text-success fw-bold">${{ formatearDinero(emp.total_vendido) }}</td>
@@ -216,7 +216,7 @@
                 <tr v-if="reporteConvenios.length === 0"><td colspan="5" class="text-center py-4 text-muted">Sin datos.</td></tr>
                 <tr v-for="conv in reporteConvenios" :key="conv.id">
                   <td class="fw-bold">{{ conv.nombre_empresa }}</td>
-                  <td>{{ conv.rut_empresa }}</td>
+                  <td>{{ conv.nit_empresa }}</td>
                   <td><span class="badge bg-secondary">{{ conv.total_servicios }}</span></td>
                   <td class="text-success fw-bold">${{ formatearDinero(conv.total_facturado) }}</td>
                   <td class="text-danger fw-bold">${{ formatearDinero(conv.total_descuentos) }}</td>

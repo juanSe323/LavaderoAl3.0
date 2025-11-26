@@ -31,8 +31,8 @@ export default {
         return response.data;
     },
     // Validación (necesaria para ServiciosView)
-    async validarConvenioPatente(patente) {
-        const response = await apiClient.get(`/convenios/validar/${patente}`);
+    async validarConvenioplaca(placa) {
+        const response = await apiClient.get(`/convenios/validar/${placa}`);
         return response.data;
     }
 }

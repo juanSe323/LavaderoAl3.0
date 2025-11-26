@@ -15,7 +15,7 @@ def get_empleados():
 @router.post("/api/empleados")
 def create_empleado(empleado: EmpleadoCreate):
     try:
-        if repo.get_by_rut(empleado.rut):
+        if repo.get_by_cedula(empleado.cedula):
             raise HTTPException(status_code=400, detail="Ya existe un empleado con esta Cédula")
         new_id = repo.create(empleado)
         return {"message": "Empleado creado", "id": new_id}
@@ -26,9 +26,9 @@ def create_empleado(empleado: EmpleadoCreate):
 @router.put("/api/empleados/{id_empleado}")
 def update_empleado(id_empleado: int, empleado: EmpleadoCreate):
     try:
-        existente = repo.get_by_rut(empleado.rut)
+        existente = repo.get_by_cedula(empleado.cedula)
         if existente and existente['id'] != id_empleado:
-             raise HTTPException(status_code=400, detail="Cédula duplicada")
+            raise HTTPException(status_code=400, detail="Cédula duplicada")
         
         rows = repo.update(id_empleado, empleado)
         if rows == 0: raise HTTPException(status_code=404, detail="Empleado no encontrado")

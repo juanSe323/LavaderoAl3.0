@@ -16,7 +16,7 @@ class ConvenioRepository:
             cursor.close()
             conn.close()
 
-    # --- NUEVO MÉTODO AGREGADO ---
+    # --- NUEVO MÃ‰TODO AGREGADO ---
     def get_by_id(self, id_convenio: int):
         conn = get_db_connection()
         cursor = conn.cursor(dictionary=True)
@@ -34,12 +34,12 @@ class ConvenioRepository:
         try:
             query = """
                 INSERT INTO convenios
-                (nombre_empresa, rut_empresa, contacto, telefono, email, direccion,
+                (nombre_empresa, nit_empresa, contacto, telefono, email, direccion,
                  tipo_descuento, valor_descuento, fecha_inicio, fecha_termino, observaciones)
                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             """
             cursor.execute(query, (
-                c.nombre_empresa, c.rut_empresa, c.contacto, c.telefono, c.email, c.direccion,
+                c.nombre_empresa, c.nit_empresa, c.contacto, c.telefono, c.email, c.direccion,
                 c.tipo_descuento, c.valor_descuento, c.fecha_inicio, c.fecha_termino, c.observaciones
             ))
             conn.commit()
@@ -90,11 +90,11 @@ class ConvenioRepository:
             cursor.close()
             conn.close()
 
-    def check_vehiculo_activo(self, patente: str):
+    def check_vehiculo_activo(self, placa: str):
         conn = get_db_connection()
         cursor = conn.cursor()
         try:
-            cursor.execute("SELECT id FROM vehiculos_convenio WHERE patente = %s AND estado = 'activo'", (patente,))
+            cursor.execute("SELECT id FROM vehiculos_convenio WHERE placa = %s AND estado = 'activo'", (placa,))
             return cursor.fetchone()
         finally:
             cursor.close()
@@ -105,9 +105,9 @@ class ConvenioRepository:
         cursor = conn.cursor()
         try:
             cursor.execute("""
-                INSERT INTO vehiculos_convenio (id_convenio, patente, tipo_vehiculo, modelo, color)
+                INSERT INTO vehiculos_convenio (id_convenio, placa, tipo_vehiculo, modelo, color)
                 VALUES (%s, %s, %s, %s, %s)
-            """, (id_convenio, v.patente, v.tipo_vehiculo, v.modelo, v.color))
+            """, (id_convenio, v.placa, v.tipo_vehiculo, v.modelo, v.color))
             conn.commit()
             return cursor.lastrowid
         except Exception as e:
@@ -131,7 +131,7 @@ class ConvenioRepository:
             cursor.close()
             conn.close()
 
-    def validar_patente(self, patente: str):
+    def validar_placa(self, placa: str):
         conn = get_db_connection()
         cursor = conn.cursor(dictionary=True)
         try:
@@ -139,8 +139,8 @@ class ConvenioRepository:
                 SELECT c.id as id_convenio, c.nombre_empresa, c.tipo_descuento, c.valor_descuento, v.tipo_vehiculo
                 FROM vehiculos_convenio v
                 JOIN convenios c ON v.id_convenio = c.id
-                WHERE v.patente = %s AND v.estado = 'activo' AND c.estado = 'activo'
-            """, (patente,))
+                WHERE v.placa = %s AND v.estado = 'activo' AND c.estado = 'activo'
+            """, (placa,))
             return cursor.fetchone()
         finally:
             cursor.close()

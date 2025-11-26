@@ -4,7 +4,6 @@ from repositories import ServicioRepository, EmpleadoRepository
 from services.servicio_service import ServicioService
 
 router = APIRouter()
-# Instanciamos el servicio una vez (o podría usarse inyección de dependencias)
 service = ServicioService()
 
 @router.get("/api/servicios")

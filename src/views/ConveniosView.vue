@@ -61,7 +61,7 @@
               <tr v-for="c in conveniosFiltrados" :key="c.id">
                 <td class="ps-3">
                   <div class="fw-bold">{{ c.nombre_empresa }}</div>
-                  <small class="text-muted">NIT: {{ c.rut_empresa }}</small>
+                  <small class="text-muted">NIT: {{ c.nit_empresa }}</small>
                 </td>
                 <td>
                   <div>{{ c.contacto }}</div>
@@ -125,8 +125,8 @@
                   <input type="text" class="form-control" v-model="form.nombre_empresa" required placeholder="Ej: Transportes SAS">
                 </div>
                 <div class="col-md-6">
-                  <label class="form-label fw-bold">NIT / RUT *</label>
-                  <input type="text" class="form-control" v-model="form.rut_empresa" required placeholder="Ej: 900.123.456-7">
+                  <label class="form-label fw-bold">NIT *</label>
+                  <input type="text" class="form-control" v-model="form.nit_empresa" required placeholder="Ej: 900.123.456-7">
                 </div>
                 <div class="col-md-4">
                   <label class="form-label">Persona de Contacto</label>
@@ -176,7 +176,7 @@
                   <table class="table table-sm table-borderless mb-0">
                     <thead>
                       <tr class="text-muted small">
-                        <th>Patente *</th>
+                        <th>placa *</th>
                         <th>Tipo *</th>
                         <th>Modelo</th>
                         <th>Color</th>
@@ -185,7 +185,7 @@
                     </thead>
                     <tbody>
                       <tr v-for="(v, index) in vehiculosTemp" :key="index">
-                        <td><input type="text" class="form-control form-control-sm text-uppercase" v-model="v.patente" placeholder="ABC-123"></td>
+                        <td><input type="text" class="form-control form-control-sm text-uppercase" v-model="v.placa" placeholder="ABC-123"></td>
                         <td>
                           <select class="form-select form-select-sm" v-model="v.tipo_vehiculo">
                             <option value="auto">Auto</option>
@@ -227,8 +227,8 @@
                 <h6 class="card-title small fw-bold text-muted mb-2">AGREGAR VEHÍCULO NUEVO</h6>
                 <div class="row g-2 align-items-end">
                   <div class="col-md-3">
-                    <label class="small">Patente</label>
-                    <input type="text" class="form-control form-control-sm text-uppercase" v-model="nuevoVehiculo.patente" placeholder="AAA-123">
+                    <label class="small">placa</label>
+                    <input type="text" class="form-control form-control-sm text-uppercase" v-model="nuevoVehiculo.placa" placeholder="AAA-123">
                   </div>
                   <div class="col-md-3">
                      <label class="small">Tipo</label>
@@ -256,7 +256,7 @@
               <table class="table table-hover table-sm">
                 <thead>
                   <tr>
-                    <th>Patente</th>
+                    <th>placa</th>
                     <th>Tipo</th>
                     <th>Modelo</th>
                     <th>Color</th>
@@ -265,7 +265,7 @@
                 </thead>
                 <tbody>
                   <tr v-for="v in vehiculosLista" :key="v.id">
-                    <td class="fw-bold">{{ v.patente }}</td>
+                    <td class="fw-bold">{{ v.placa }}</td>
                     <td>{{ v.tipo_vehiculo.toUpperCase() }}</td>
                     <td>{{ v.modelo || '-' }}</td>
                     <td>{{ v.color || '-' }}</td>
@@ -306,7 +306,7 @@ const filtroEstado = ref('activo')
 const form = reactive({
   id: null,
   nombre_empresa: '',
-  rut_empresa: '',
+  nit_empresa: '',
   contacto: '',
   telefono: '',
   email: '',
@@ -323,7 +323,7 @@ const vehiculosTemp = ref([])
 // Gestión Modal Vehículos
 const convenioSeleccionado = ref(null)
 const vehiculosLista = ref([])
-const nuevoVehiculo = reactive({ patente: '', tipo_vehiculo: 'auto', modelo: '', color: '' })
+const nuevoVehiculo = reactive({ placa: '', tipo_vehiculo: 'auto', modelo: '', color: '' })
 
 // 3. Ciclo de vida
 onMounted(() => {
@@ -335,7 +335,7 @@ const conveniosFiltrados = computed(() => {
   if (!convenios.value) return []
   return convenios.value.filter(c => {
     const term = busqueda.value.toLowerCase()
-    const matchText = c.nombre_empresa.toLowerCase().includes(term) || c.rut_empresa.includes(term)
+    const matchText = c.nombre_empresa.toLowerCase().includes(term) || c.nit_empresa.includes(term)
     const matchEst = filtroEstado.value ? c.estado === filtroEstado.value : true
     return matchText && matchEst
   })
@@ -344,7 +344,7 @@ const conveniosFiltrados = computed(() => {
 // 5. Acciones (CRUD Convenio)
 const limpiarForm = () => {
   Object.assign(form, {
-    id: null, nombre_empresa: '', rut_empresa: '', contacto: '', telefono: '', 
+    id: null, nombre_empresa: '', nit_empresa: '', contacto: '', telefono: '', 
     email: '', tipo_descuento: 'porcentaje', valor_descuento: 0, 
     fecha_inicio: new Date().toISOString().split('T')[0], fecha_termino: '', observaciones: ''
   })
@@ -381,7 +381,7 @@ const guardarConvenio = async () => {
       // Guardar vehículos iniciales
       if (vehiculosTemp.value.length > 0) {
         for (const v of vehiculosTemp.value) {
-          if (v.patente) await api.addVehiculoConvenio(idConvenio, v)
+          if (v.placa) await api.addVehiculoConvenio(idConvenio, v)
         }
       }
       alert("Convenio creado exitosamente")
@@ -405,12 +405,12 @@ const eliminarConvenio = async (c) => {
 
 // 6. Acciones (Vehículos)
 const agregarFilaVehiculoTemp = () => {
-  vehiculosTemp.value.push({ patente: '', tipo_vehiculo: 'auto', modelo: '', color: '' })
+  vehiculosTemp.value.push({ placa: '', tipo_vehiculo: 'auto', modelo: '', color: '' })
 }
 
 const verVehiculos = async (c) => {
   convenioSeleccionado.value = c
-  Object.assign(nuevoVehiculo, { patente: '', tipo_vehiculo: 'auto', modelo: '', color: '' })
+  Object.assign(nuevoVehiculo, { placa: '', tipo_vehiculo: 'auto', modelo: '', color: '' })
   try {
     vehiculosLista.value = await api.getVehiculosConvenio(c.id)
     showModal('modalVehiculos')
@@ -418,11 +418,11 @@ const verVehiculos = async (c) => {
 }
 
 const agregarVehiculoIndividual = async () => {
-  if(!nuevoVehiculo.patente) return alert("Falta patente")
+  if(!nuevoVehiculo.placa) return alert("Falta placa")
   try {
     await api.addVehiculoConvenio(convenioSeleccionado.value.id, nuevoVehiculo)
     // Reset y recargar
-    Object.assign(nuevoVehiculo, { patente: '', tipo_vehiculo: 'auto', modelo: '', color: '' })
+    Object.assign(nuevoVehiculo, { placa: '', tipo_vehiculo: 'auto', modelo: '', color: '' })
     vehiculosLista.value = await api.getVehiculosConvenio(convenioSeleccionado.value.id)
     cargarConvenios() // Actualizar contador
   } catch (err) {

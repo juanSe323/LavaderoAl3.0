@@ -105,7 +105,7 @@
                   <div class="fw-bold">{{ empleado.nombre }}</div>
                   <small class="text-muted" style="font-size: 0.75rem;">ID: {{ empleado.id }}</small>
                 </td>
-                <td>{{ empleado.rut }}</td>
+                <td>{{ empleado.cedula }}</td>
                 <td>
                   <div v-if="empleado.telefono">
                     <i class="bi bi-whatsapp text-success me-1"></i> {{ empleado.telefono }}
@@ -171,7 +171,7 @@
                 </div>
                 <div class="col-md-6">
                   <label class="form-label fw-bold">Cédula (C.C.) *</label>
-                  <input type="number" class="form-control" v-model="form.rut" placeholder="Ej: 1045678900" required>
+                  <input type="number" class="form-control" v-model="form.cedula" placeholder="Ej: 1045678900" required>
                 </div>
                 <div class="col-md-6">
                   <label class="form-label fw-bold">Celular / WhatsApp *</label>
@@ -255,9 +255,9 @@ const empleadosFiltrados = computed(() => {
   if (!empleados.value) return []
   return empleados.value.filter(emp => {
     const term = busqueda.value.toLowerCase()
-    const rutStr = emp.rut ? String(emp.rut) : ''
+    const rutStr = emp.cedula ? String(emp.cedula) : ''
     
-    const matchText = emp.nombre.toLowerCase().includes(term) || rutStr.includes(term)
+    const matchText = emp.nombre.toLowerCase().includes(term) || cedulaStr.includes(term)
     const matchEstado = filtroEstado.value ? emp.estado === filtroEstado.value : true
     
     return matchText && matchEstado
@@ -274,7 +274,7 @@ const limpiarFormulario = () => {
   Object.assign(form, {
     id: null,
     nombre: '',
-    rut: '',
+    ceula: '',
     telefono: '',
     email: '',
     porcentaje_comision: 40
@@ -291,7 +291,7 @@ const editarEmpleado = (emp) => {
   Object.assign(form, {
     id: emp.id,
     nombre: emp.nombre,
-    rut: emp.rut,
+    rut: emp.cedula,
     telefono: emp.telefono,
     email: emp.email || '',
     // Nota: El backend devuelve 'porcentaje_comision' (snake_case)
@@ -301,7 +301,7 @@ const editarEmpleado = (emp) => {
 }
 
 const guardarEmpleado = async () => {
-  if (!form.nombre || !form.rut || !form.telefono) {
+  if (!form.nombre || !form.cedula || !form.telefono) {
     alert("Completa los campos obligatorios (*)")
     return
   }
@@ -309,7 +309,7 @@ const guardarEmpleado = async () => {
   try {
     const payload = {
       nombre: form.nombre,
-      rut: String(form.rut),
+      cedula: String(form.cedula),
       telefono: form.telefono,
       email: form.email,
       porcentaje_comision: parseInt(form.porcentaje_comision)

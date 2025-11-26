@@ -16,7 +16,7 @@ class UsuarioCreate(BaseModel):
 # --- EMPLEADOS ---
 class EmpleadoCreate(BaseModel):
     nombre: str = Field(..., min_length=3, max_length=100)
-    rut: str = Field(..., min_length=5, max_length=15) # Adaptado para Cédula/NIT
+    cedula: str = Field(..., min_length=5, max_length=15) # Adaptado para Cédula/NIT
     telefono: str = Field(..., min_length=7, max_length=15)
     email: Optional[str] = None
     porcentaje_comision: int = Field(..., ge=0, le=100)
@@ -31,7 +31,7 @@ class EmpleadoCreate(BaseModel):
 
 # --- SERVICIOS ---
 class ServicioCreate(BaseModel):
-    patente: str = Field(..., min_length=5, max_length=10)
+    placa: str = Field(..., min_length=5, max_length=10)
     tipo_vehiculo: str
     tipo_servicio: str
     monto_total: float = Field(..., ge=0)
@@ -42,13 +42,13 @@ class ServicioCreate(BaseModel):
     descuento: Optional[float] = 0
     observaciones: Optional[str] = None
 
-    @validator('patente')
-    def uppercase_patente(cls, v):
+    @validator('placa')
+    def uppercase_placa(cls, v):
         return v.upper().replace(' ', '').replace('-', '')
 
 # CLASE QUE FALTABA (Corrige el ImportError)
 class ServicioUpdate(BaseModel):
-    patente: Optional[str] = None
+    placa: Optional[str] = None
     tipo_vehiculo: Optional[str] = None
     tipo_servicio: Optional[str] = None
     monto_total: Optional[float] = None
@@ -84,7 +84,7 @@ class MovimientoInventario(BaseModel):
 # --- CONVENIOS ---
 class ConvenioCreate(BaseModel):
     nombre_empresa: str
-    rut_empresa: str = Field(..., min_length=6, max_length=15) # NIT
+    nit_empresa: str = Field(..., min_length=6, max_length=15) # CORREGIDO: nit_empresa
     contacto: Optional[str] = None
     telefono: str
     email: EmailStr
@@ -97,7 +97,7 @@ class ConvenioCreate(BaseModel):
 
 class ConvenioUpdate(BaseModel):
     nombre_empresa: Optional[str] = None
-    rut_empresa: Optional[str] = None
+    nit_empresa: Optional[str] = None # CORREGIDO: nit_empresa
     contacto: Optional[str] = None
     telefono: Optional[str] = None
     email: Optional[str] = None
@@ -110,11 +110,8 @@ class ConvenioUpdate(BaseModel):
     observaciones: Optional[str] = None
 
 class VehiculoConvenioCreate(BaseModel):
-    # id_convenio no es necesario en el body si se pasa por URL, 
-    # pero si tu backend lo pide en el body, déjalo aquí.
-    # En tu router actual 'add_vehiculo_convenio' recibes 'vehiculo: VehiculoConvenioCreate'
-    # y el id_convenio viene por URL. Ajustaremos el esquema para que coincida.
-    patente: str
+    # id_convenio no es necesario en el body si se pasa por URL
+    placa: str
     tipo_vehiculo: str
     modelo: Optional[str] = None
     color: Optional[str] = None

@@ -46,7 +46,7 @@
                   <small class="text-muted">{{ s.hora_fmt }}</small>
                 </td>
                 <td>
-                  <div class="fw-bold font-monospace">{{ s.patente }}</div>
+                  <div class="fw-bold font-monospace">{{ s.placa }}</div>
                   <small class="text-muted text-capitalize">{{ s.tipo_vehiculo }}</small>
                 </td>
                 <td>
@@ -122,12 +122,12 @@
               
               <div v-if="tipoRegistro === 'convenio'" class="card bg-light border-primary mb-4">
                 <div class="card-body">
-                  <label class="form-label fw-bold text-primary">Paso 1: Validar Patente</label>
+                  <label class="form-label fw-bold text-primary">Paso 1: Validar placa</label>
                   <div class="input-group mb-2">
                     <input 
                       type="text" 
                       class="form-control text-uppercase fw-bold" 
-                      v-model="form.patente" 
+                      v-model="form.placa" 
                       placeholder="Ej: AB1234" 
                       :disabled="modoEdicion"
                       @keyup.enter="!modoEdicion && validarConvenio()"
@@ -156,8 +156,8 @@
 
               <div class="row g-3">
                 <div class="col-md-4" v-if="tipoRegistro === 'normal'">
-                  <label class="form-label fw-bold">Patente</label>
-                  <input type="text" class="form-control text-uppercase" v-model="form.patente" required maxlength="8">
+                  <label class="form-label fw-bold" >Placa</label>
+                  <input placeholder="ABC###" type="text" class="form-control text-uppercase" v-model="form.placa" required maxlength="8">
                 </div>
 
                 <div class="col-md-4">
@@ -246,7 +246,7 @@ const montoDescuento = ref(0)
 
 const form = reactive({
   id: null,
-  patente: '',
+  placa: '',
   tipo_vehiculo: 'auto',
   tipo_servicio: '',
   monto_total: 0,
@@ -297,14 +297,14 @@ const serviciosProcesados = computed(() => {
 
 // 4. Lógica de Negocio
 const validarConvenio = async () => {
-  if (!form.patente) return
+  if (!form.placa) return
   validando.value = true
   errorConvenio.value = null
   convenioDetectado.value = null
   form.id_convenio = null
 
   try {
-    const res = await api.validarConvenioPatente(form.patente) // Asegúrate de tener esta función en api.js (ver nota abajo)
+    const res = await api.validarConvenioplaca(form.placa) // Asegúrate de tener esta función en api.js (ver nota abajo)
     
     if (res.tiene_convenio) {
       const datos = res.convenio
@@ -313,10 +313,10 @@ const validarConvenio = async () => {
       if (datos.tipo_vehiculo) form.tipo_vehiculo = datos.tipo_vehiculo
       calcularPrecio()
     } else {
-      errorConvenio.value = "Patente no asociada a convenio vigente."
+      errorConvenio.value = "placa no asociada a convenio vigente."
     }
   } catch (e) {
-    errorConvenio.value = "Error al validar la patente."
+    errorConvenio.value = "Error al validar la placa."
   } finally {
     validando.value = false
   }
@@ -352,7 +352,7 @@ const calcularPrecio = () => {
 const limpiarFormulario = (borrarTodo = true) => {
   // Reset parcial o total según necesidad
   if (borrarTodo) {
-    Object.assign(form, { id: null, patente: '', tipo_vehiculo: 'auto', tipo_servicio: '', monto_total: 0, id_empleado: '', id_convenio: null, descuento: 0, observaciones: '' })
+    Object.assign(form, { id: null, placa: '', tipo_vehiculo: 'auto', tipo_servicio: '', monto_total: 0, id_empleado: '', id_convenio: null, descuento: 0, observaciones: '' })
   } else {
     // Al cambiar de tipo de registro, solo reseteamos convenios
     form.id_convenio = null
@@ -376,7 +376,7 @@ const abrirModalEditar = (s) => {
   // Copiar datos
   Object.assign(form, {
     id: s.id,
-    patente: s.patente,
+    placa: s.placa,
     tipo_vehiculo: s.tipo_vehiculo,
     tipo_servicio: s.tipo_servicio,
     monto_total: s.monto_total,
@@ -401,18 +401,18 @@ const abrirModalEditar = (s) => {
 }
 
 const guardarServicio = async () => {
-  if (!form.patente || !form.tipo_servicio || !form.id_empleado) {
+  if (!form.placa || !form.tipo_servicio || !form.id_empleado) {
     alert("Por favor complete los campos obligatorios.")
     return
   }
   
   if (tipoRegistro.value === 'convenio' && !form.id_convenio && !modoEdicion.value) {
-     alert("Debe validar la patente del convenio primero.")
+     alert("Debe validar la placa del convenio primero.")
      return
   }
 
   try {
-    const payload = { ...form, patente: form.patente.toUpperCase() }
+    const payload = { ...form, placa: form.placa.toUpperCase() }
     
     if (modoEdicion.value) {
       await api.updateServicio(form.id, payload)
@@ -431,7 +431,7 @@ const guardarServicio = async () => {
 }
 
 const cancelarServicio = async (item) => {
-  if (!confirm(`¿Cancelar servicio de ${item.patente}?`)) return
+  if (!confirm(`¿Cancelar servicio de ${item.placa}?`)) return
   try {
     await api.deleteServicio(item.id)
     recargar()
@@ -444,8 +444,8 @@ const cancelarServicio = async (item) => {
 const formatearServicio = (slug) => slug ? slug.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) : ''
 const getColorEstado = (e) => ({ 'completado': 'success', 'pendiente': 'warning', 'cancelado': 'secondary' }[e] || 'primary')
 
-// Nota: Si necesitas la función `api.validarConvenioPatente`, asegúrate de que apunte a:
-// GET /api/convenios/validar/{patente}
+// Nota: Si necesitas la función `api.validarConvenioplaca`, asegúrate de que apunte a:
+// GET /api/convenios/validar/{placa}
 </script>
 
 <style scoped>

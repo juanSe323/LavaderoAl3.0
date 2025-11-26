@@ -7,7 +7,7 @@ class LiquidacionRepository:
         cursor = conn.cursor(dictionary=True)
         try:
             cursor.execute("""
-                SELECT l.*, e.nombre as nombre_empleado, e.rut, e.porcentaje_comision
+                SELECT l.*, e.nombre as nombre_empleado, e.cedula, e.porcentaje_comision
                 FROM liquidaciones l
                 JOIN empleados e ON l.id_empleado = e.id
                 ORDER BY l.fecha_creacion DESC
@@ -22,7 +22,7 @@ class LiquidacionRepository:
         cursor = conn.cursor(dictionary=True)
         try:
             cursor.execute("""
-                SELECT l.*, e.nombre as nombre_empleado, e.rut, e.email, e.telefono, e.porcentaje_comision
+                SELECT l.*, e.nombre as nombre_empleado, e.cedula, e.email, e.telefono, e.porcentaje_comision
                 FROM liquidaciones l
                 JOIN empleados e ON l.id_empleado = e.id
                 WHERE l.id = %s
@@ -37,7 +37,7 @@ class LiquidacionRepository:
         cursor = conn.cursor(dictionary=True)
         try:
             cursor.execute("""
-                SELECT s.id, s.patente, s.tipo_vehiculo, s.tipo_servicio, s.fecha, s.monto_total, s.monto_comision
+                SELECT s.id, s.placa, s.tipo_vehiculo, s.tipo_servicio, s.fecha, s.monto_total, s.monto_comision
                 FROM servicios s
                 WHERE s.id_empleado = %s AND s.fecha BETWEEN %s AND %s AND s.estado = 'completado'
                 ORDER BY s.fecha DESC

@@ -37,13 +37,13 @@ class ServicioRepository:
         try:
             query = """
                 INSERT INTO servicios 
-                (patente, tipo_vehiculo, tipo_servicio, monto_total, monto_comision, 
+                (placa, tipo_vehiculo, tipo_servicio, monto_total, monto_comision, 
                  id_empleado, id_convenio, es_convenio, descuento, observaciones, fecha, estado)
                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, NOW(), 'completado')
             """
             # Mapeo exacto de tu esquema
             values = (
-                data.patente.upper(), 
+                data.placa.upper(), 
                 data.tipo_vehiculo, 
                 data.tipo_servicio, 
                 data.monto_total, 
@@ -68,7 +68,7 @@ class ServicioRepository:
         conn = get_db_connection()
         cursor = conn.cursor()
         try:
-            # Añadimos el ID al final de la lista de valores para la cláusula WHERE
+            # AÃ±adimos el ID al final de la lista de valores para la clÃ¡usula WHERE
             vals.append(id_servicio)
             sql = f"UPDATE servicios SET {', '.join(campos)} WHERE id = %s"
             
@@ -86,7 +86,7 @@ class ServicioRepository:
         conn = get_db_connection()
         cursor = conn.cursor()
         try:
-            # Soft delete: cambiamos estado a 'cancelado' y anulamos comisión
+            # Soft delete: cambiamos estado a 'cancelado' y anulamos comisiÃ³n
             cursor.execute("""
                 UPDATE servicios 
                 SET estado = 'cancelado', monto_comision = 0 

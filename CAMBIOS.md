@@ -38,7 +38,7 @@ Se ha realizado una revisión completa del proyecto LavaderoAL, corrigiendo erro
 - ✅ RUT chileno (formato XX.XXX.XXX-X)
 - ✅ Email con EmailStr
 - ✅ Teléfono chileno (+56 9 XXXX XXXX)
-- ✅ Patente chilena (ABCD12 o AB1234)
+- ✅ placa chilena (ABCD12 o AB1234)
 - ✅ Rangos numéricos (stock >= 0, precio > 0)
 - ✅ Validación de fechas (periodo_fin > periodo_inicio)
 
@@ -183,7 +183,7 @@ No requiere cambios adicionales, solo asegúrate de que el backend esté corrien
 ### Validaciones
 - RUT: Formato chileno (ej: 12345678-9)
 - Teléfono: +56912345678 o 912345678
-- Patente: ABCD12 o AB1234
+- placa: ABCD12 o AB1234
 - Emails validados con pydantic EmailStr
 
 ---

@@ -28,7 +28,7 @@ class ReporteRepository:
         cursor = conn.cursor(dictionary=True)
         try:
             cursor.execute(f"""
-                SELECT e.id, e.nombre, e.rut, e.porcentaje_comision, COUNT(s.id) as total_servicios,
+                SELECT e.id, e.nombre, e.cedula, e.porcentaje_comision, COUNT(s.id) as total_servicios,
                 COALESCE(SUM(s.monto_total), 0) as total_vendido, COALESCE(SUM(s.monto_comision), 0) as total_comisiones,
                 COALESCE(AVG(s.monto_total), 0) as ticket_promedio
                 FROM empleados e LEFT JOIN servicios s ON e.id = s.id_empleado AND s.estado='completado' {where_clause}
@@ -58,7 +58,7 @@ class ReporteRepository:
         cursor = conn.cursor(dictionary=True)
         try:
             cursor.execute(f"""
-                SELECT c.id, c.nombre_empresa, c.rut_empresa, COUNT(s.id) as total_servicios,
+                SELECT c.id, c.nombre_empresa, c.nit_empresa, COUNT(s.id) as total_servicios,
                 COALESCE(SUM(s.monto_total), 0) as total_facturado, COALESCE(SUM(s.descuento), 0) as total_descuentos
                 FROM convenios c LEFT JOIN servicios s ON c.id = s.id_convenio AND s.es_convenio=TRUE AND s.estado='completado' {where_clause}
                 WHERE c.estado='activo' GROUP BY c.id ORDER BY total_facturado DESC

@@ -22,11 +22,11 @@ class EmpleadoRepository:
             cursor.close()
             conn.close()
 
-    def get_by_rut(self, rut: str):
+    def get_by_cedula(self, cedula: str):
         conn = get_db_connection()
         cursor = conn.cursor(dictionary=True)
         try:
-            cursor.execute("SELECT id FROM empleados WHERE rut = %s", (rut,))
+            cursor.execute("SELECT id FROM empleados WHERE cedula = %s", (cedula,))
             return cursor.fetchone()
         finally:
             cursor.close()
@@ -37,10 +37,10 @@ class EmpleadoRepository:
         cursor = conn.cursor()
         try:
             query = """
-                INSERT INTO empleados (nombre, rut, telefono, email, porcentaje_comision, estado)
+                INSERT INTO empleados (nombre, cedula, telefono, email, porcentaje_comision, estado)
                 VALUES (%s, %s, %s, %s, %s, 'activo')
             """
-            values = (empleado.nombre, empleado.rut, empleado.telefono, empleado.email, empleado.porcentaje_comision)
+            values = (empleado.nombre, empleado.cedula, empleado.telefono, empleado.email, empleado.porcentaje_comision)
             cursor.execute(query, values)
             conn.commit()
             return cursor.lastrowid
@@ -60,7 +60,7 @@ class EmpleadoRepository:
                 SET nombre = %s, rut = %s, telefono = %s, email = %s, porcentaje_comision = %s
                 WHERE id = %s
             """
-            values = (empleado.nombre, empleado.rut, empleado.telefono, empleado.email, empleado.porcentaje_comision, id_empleado)
+            values = (empleado.nombre, empleado.cedula, empleado.telefono, empleado.email, empleado.porcentaje_comision, id_empleado)
             cursor.execute(query, values)
             conn.commit()
             return cursor.rowcount

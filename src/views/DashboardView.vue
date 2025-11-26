@@ -245,7 +245,7 @@ const cargarTodo = async () => {
   const listaServicios = resServicios.data || resServicios
   serviciosRecientes.value = listaServicios.map(s => ({
     id: s.id,
-    cliente: s.patente,
+    cliente: s.placa,
     vehiculo: `${s.tipo_vehiculo || ''}`, // Ajustado para mostrar tipo
     tipoServicio: formatearTipoServicio(s.tipo_servicio),
     empleado: s.nombre_empleado || 'Sin asignar',

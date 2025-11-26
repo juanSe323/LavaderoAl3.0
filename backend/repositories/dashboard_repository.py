@@ -10,7 +10,7 @@ class DashboardRepository:
             queries = {
                 "servicios_hoy": "SELECT COUNT(*) as val FROM servicios WHERE DATE(fecha)=CURDATE() AND estado='completado'",
                 "ingresos_hoy": "SELECT COALESCE(SUM(monto_total), 0) as val FROM servicios WHERE DATE(fecha)=CURDATE() AND estado='completado'",
-                "clientes_activos": "SELECT COUNT(DISTINCT patente) as val FROM servicios WHERE MONTH(fecha)=MONTH(CURDATE()) AND YEAR(fecha)=YEAR(CURDATE()) AND estado='completado'",
+                "clientes_activos": "SELECT COUNT(DISTINCT placa) as val FROM servicios WHERE MONTH(fecha)=MONTH(CURDATE()) AND YEAR(fecha)=YEAR(CURDATE()) AND estado='completado'",
                 "insumos_bajos": "SELECT COUNT(*) as val FROM inventario WHERE stock <= stock_minimo",
                 "servicios_mes": "SELECT COUNT(*) as val FROM servicios WHERE MONTH(fecha)=MONTH(CURDATE()) AND YEAR(fecha)=YEAR(CURDATE()) AND estado='completado'",
                 "ingresos_mes": "SELECT COALESCE(SUM(monto_total), 0) as val FROM servicios WHERE MONTH(fecha)=MONTH(CURDATE()) AND YEAR(fecha)=YEAR(CURDATE()) AND estado='completado'",
@@ -30,7 +30,7 @@ class DashboardRepository:
         cursor = conn.cursor(dictionary=True)
         try:
             cursor.execute("""
-                SELECT s.id, s.patente, s.tipo_vehiculo, s.tipo_servicio, s.monto_total, s.monto_comision,
+                SELECT s.id, s.placa, s.tipo_vehiculo, s.tipo_servicio, s.monto_total, s.monto_comision,
                 s.fecha, s.estado, s.es_convenio, e.nombre as nombre_empleado, c.nombre_empresa
                 FROM servicios s
                 LEFT JOIN empleados e ON s.id_empleado = e.id
