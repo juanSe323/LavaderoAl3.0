@@ -52,7 +52,7 @@ Este proyecto y todos sus participantes están comprometidos a proporcionar un a
 
 ---
 
-## 🚀 Cómo Contribuir
+## Cómo Contribuir
 
 Hay muchas formas de contribuir al proyecto:
 
