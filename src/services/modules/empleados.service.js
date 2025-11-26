@@ -16,5 +16,10 @@ export default {
     async deleteEmpleado(id) {
         const response = await apiClient.delete(`/empleados/${id}`);
         return response.data;
-    }
+    },
+    // En src/services/modules/empleados.service.js (o api.js según tu estructura)
+    // En el objeto de servicios de empleados
+     reactivarEmpleado(id) {
+    return apiClient.put(`/empleados/${id}/reactivar`);
+}
 }

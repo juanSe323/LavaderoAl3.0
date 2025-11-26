@@ -347,8 +347,22 @@ const eliminarEmpleado = async (emp) => {
   }
 }
 
-const reactivarEmpleado = (emp) => {
-  alert("Funcionalidad de reactivación pendiente de backend")
+const reactivarEmpleado = async (emp) => {
+  if (!confirm(`¿Confirmas reactivar a ${emp.nombre}?`)) return
+  
+  try {
+    // Opción A: Si tienes api.reactivarEmpleado definido
+    // await api.reactivarEmpleado(emp.id) 
+    
+    // Opción B: Llamada directa genérica (si usas axios directamente o un apiClient genérico)
+    await apiClient.put(`/empleados/${emp.id}/reactivar`)
+
+    alert("Empleado reactivado correctamente")
+    cargarEmpleados() // Recarga la lista para ver el cambio de estado
+  } catch (e) {
+    console.error(e)
+    alert("Error al reactivar: " + (e.response?.data?.detail || "Error desconocido"))
+  }
 }
 </script>
 

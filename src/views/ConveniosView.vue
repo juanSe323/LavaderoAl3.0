@@ -97,8 +97,23 @@
                     <button class="btn btn-outline-primary" title="Editar" @click="editarConvenio(c)">
                       <i class="bi bi-pencil"></i>
                     </button>
-                    <button v-if="c.estado === 'activo'" class="btn btn-outline-danger" title="Desactivar" @click="eliminarConvenio(c)">
+                    
+                    <button 
+                      v-if="c.estado === 'activo'" 
+                      class="btn btn-outline-danger" 
+                      title="Desactivar" 
+                      @click="eliminarConvenio(c)"
+                    >
                       <i class="bi bi-slash-circle"></i>
+                    </button>
+
+                    <button 
+                      v-else 
+                      class="btn btn-outline-success" 
+                      title="Reactivar" 
+                      @click="reactivarConvenio(c)"
+                    >
+                      <i class="bi bi-check-circle"></i>
                     </button>
                   </div>
                 </td>
@@ -243,10 +258,15 @@
                     <label class="small">Modelo</label>
                     <input type="text" class="form-control form-control-sm" v-model="nuevoVehiculo.modelo">
                   </div>
+                  <div class="col-md-2">
+                    <label class="small">Color</label>
+                    <input type="text" class="form-control form-control-sm" v-model="nuevoVehiculo.color" placeholder="Ej: Rojo">
+                  </div>
                   <div class="col-md-3">
                     <button class="btn btn-sm btn-success w-100" @click="agregarVehiculoIndividual">
                       <i class="bi bi-plus-lg"></i> Agregar
                     </button>
+                    
                   </div>
                 </div>
               </div>
@@ -372,26 +392,43 @@ const guardarConvenio = async () => {
     let idConvenio
     if (payload.id) {
       await api.updateConvenio(payload.id, payload)
-      idConvenio = payload.id
-      alert("Convenio actualizado")
+      alert("Convenio actualizado correctamente")
     } else {
+      // 1. Crear el Convenio
       const res = await api.createConvenio(payload)
       idConvenio = res.id
       
-      // Guardar vehículos iniciales
+      // 2. Agregar vehículos (Manejo de errores individual)
+      let vehiculosGuardados = 0
+      let vehiculosFallidos = []
+
       if (vehiculosTemp.value.length > 0) {
         for (const v of vehiculosTemp.value) {
-          if (v.placa) await api.addVehiculoConvenio(idConvenio, v)
+          if (v.placa) {
+            try {
+              await api.addVehiculoConvenio(idConvenio, v)
+              vehiculosGuardados++
+            } catch (errorVehiculo) {
+              console.error("Error agregando vehículo:", v.placa, errorVehiculo)
+              vehiculosFallidos.push(v.placa)
+            }
+          }
         }
       }
-      alert("Convenio creado exitosamente")
+
+      // 3. Mensaje final inteligente
+      if (vehiculosFallidos.length > 0) {
+        alert(`Convenio creado con éxito.\n\nSe agregaron ${vehiculosGuardados} vehículos.\nNO se pudieron agregar las siguientes placas (posiblemente duplicadas): ${vehiculosFallidos.join(', ')}`)
+      } else {
+        alert("Convenio y vehículos registrados exitosamente")
+      }
     }
 
     hideModal('modalConvenio')
     cargarConvenios()
     
   } catch (err) {
-    alert("Error: " + (err.response?.data?.detail || err.message))
+    alert("Error al guardar convenio: " + (err.response?.data?.detail || err.message))
   }
 }
 
@@ -416,7 +453,17 @@ const verVehiculos = async (c) => {
     showModal('modalVehiculos')
   } catch(e) { console.error(e) }
 }
-
+const reactivarConvenio = async (c) => {
+  if(!confirm(`¿Reactivar el convenio con ${c.nombre_empresa}?`)) return
+  try {
+    // Reutilizamos el endpoint de update enviando solo el estado
+    await api.updateConvenio(c.id, { estado: 'activo' })
+    alert("Convenio reactivado exitosamente")
+    cargarConvenios()
+  } catch(e) { 
+    alert("Error al reactivar: " + (e.response?.data?.detail || e.message)) 
+  }
+}
 const agregarVehiculoIndividual = async () => {
   if(!nuevoVehiculo.placa) return alert("Falta placa")
   try {

@@ -84,3 +84,19 @@ class EmpleadoRepository:
         finally:
             cursor.close()
             conn.close()
+
+# ... (código existente)
+
+    def activate(self, id_empleado: int):
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        try:
+            cursor.execute("UPDATE empleados SET estado = 'activo' WHERE id = %s", (id_empleado,))
+            conn.commit()
+            return cursor.rowcount
+        except Exception as e:
+            conn.rollback()
+            raise e
+        finally:
+            cursor.close()
+            conn.close()

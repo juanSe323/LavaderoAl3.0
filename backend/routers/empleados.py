@@ -36,6 +36,16 @@ def update_empleado(id_empleado: int, empleado: EmpleadoCreate):
     except HTTPException: raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+    
+@router.put("/api/empleados/{id_empleado}/reactivar")
+def reactivar_empleado(id_empleado: int):
+    try:
+        rows = repo.activate(id_empleado)
+        if rows == 0:
+            raise HTTPException(status_code=404, detail="Empleado no encontrado")
+        return {"mensaje": "Empleado reactivado exitosamente"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 @router.delete("/api/empleados/{id_empleado}")
 def delete_empleado(id_empleado: int):
