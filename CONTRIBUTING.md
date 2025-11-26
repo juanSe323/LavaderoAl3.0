@@ -1,8 +1,8 @@
-# 🤝 Guía de Contribución - Lavadero AL
+# Guía de Contribución - Lavadero AL
 
 ¡Gracias por tu interés en contribuir a Lavadero AL! Este documento proporciona las pautas y procesos para contribuir al proyecto.
 
-## 📋 Tabla de Contenidos
+## Tabla de Contenidos
 
 - [Código de Conducta](#código-de-conducta)
 - [Cómo Contribuir](#cómo-contribuir)
@@ -16,7 +16,7 @@
 
 ---
 
-## 📜 Código de Conducta
+## Código de Conducta
 
 ### Nuestro Compromiso
 
@@ -94,7 +94,7 @@ Para solicitar nuevas funcionalidades:
 
 ---
 
-## 💻 Proceso de Desarrollo
+## Proceso de Desarrollo
 
 ### 1. Configurar el Entorno
 
@@ -169,7 +169,7 @@ git rebase upstream/main
 
 ---
 
-## 📝 Estándares de Código
+## Estándares de Código
 
 ### Python (Backend)
 
@@ -348,7 +348,7 @@ select e.id,e.nombre,count(s.id),sum(s.monto_total) from empleados e left join s
 
 ---
 
-## 📌 Commits y Mensajes
+## Commits y Mensajes
 
 ### Formato de Commits
 
@@ -403,7 +403,7 @@ git commit -m "changes"
 
 ---
 
-## 🔍 Pull Requests
+## Pull Requests
 
 ### Antes de Enviar
 
@@ -458,7 +458,7 @@ Describe las pruebas realizadas.
 
 ---
 
-## 🐛 Reportar Bugs
+## Reportar Bugs
 
 ### Antes de Reportar
 
@@ -499,7 +499,7 @@ Cualquier otro contexto sobre el problema.
 
 ---
 
-## ✨ Solicitar Características
+## Solicitar Características
 
 ### Propuesta de Característica
 
@@ -526,7 +526,7 @@ Agrega cualquier otro contexto o screenshots.
 
 ---
 
-## ❓ Preguntas Frecuentes
+## Preguntas Frecuentes
 
 ### ¿Necesito permiso para trabajar en un issue?
 
@@ -554,7 +554,7 @@ Por ahora, usa GitHub Issues y Discussions. En el futuro podríamos agregar Disc
 
 ---
 
-## 🎯 Buenas Prácticas
+## Buenas Prácticas
 
 ### Para Contribuidores
 
@@ -574,7 +574,7 @@ Por ahora, usa GitHub Issues y Discussions. En el futuro podríamos agregar Disc
 
 ---
 
-## 📚 Recursos Útiles
+## Recursos Útiles
 
 - [Guía de Markdown](https://www.markdownguide.org/)
 - [Conventional Commits](https://www.conventionalcommits.org/)
@@ -585,22 +585,13 @@ Por ahora, usa GitHub Issues y Discussions. En el futuro podríamos agregar Disc
 
 ---
 
-## 🙏 Agradecimientos
+## Agradecimientos
 
 Gracias a todos los que contribuyen al proyecto. Cada contribución, sin importar el tamaño, es valiosa.
 
 ### Contribuidores Destacados
 
 <!-- Se llenará automáticamente con contribuidores del proyecto -->
-
----
-
-## 📞 Contacto
-
-¿Preguntas sobre cómo contribuir?
-
-- Abre un [Discussion](https://github.com/tuusuario/LavaderoAl3.0/discussions)
-- Envía un email a: contribuciones@lavaderoal.com
 
 ---
 
